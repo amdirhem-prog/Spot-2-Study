@@ -62,14 +62,14 @@ These rules apply to everyone who contributes to the Spot 2 Study repository (`c
   ```
 
   - **type:** `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
-  - **scope:** `client`, `api`, `supabase`, `docs`, or a task ID such as `T-05.1`
-  - **summary:** imperative mood, lowercase, no period, 72 characters or fewer
+  - **scope (required):** `client`, `api`, `supabase`, `docs`, or a task ID such as `T-05.1`. Every commit message must include a scope.
+  - **summary:** imperative mood, lowercase (task IDs keep their `T-xx.x` form), no period, 72 characters or fewer
 
   Examples:
   ```
   feat(api): add noise level filter to locations endpoint (T-05.1)
   fix(client): show empty state when search has no results (T-01.3)
-  docs: add task list for approved user stories
+  docs(docs): add task list for approved user stories
   ```
 
 - Each commit is one logical change. Don't mix unrelated changes in a single commit.
@@ -87,12 +87,12 @@ These rules apply to everyone who contributes to the Spot 2 Study repository (`c
 
   | Prefix      | Use for                         | Example                              |
   | ----------- | ------------------------------- | ------------------------------------ |
-  | `feature/`  | New task from `TASK-LIST.md`    | `feature/T-05.1-noise-level-filter`  |
+  | `feature/`  | New task from `TASK-LIST.md`    | `feature/t-05.1-noise-level-filter`  |
   | `fix/`      | Bug fixes                       | `fix/search-empty-results`           |
   | `docs/`     | Documentation-only changes      | `docs/update-prd`                    |
   | `chore/`    | Tooling, config, dependencies   | `chore/setup-eslint`                 |
 
-- Branch names are lowercase `kebab-case` and include the task ID when there is one.
+- Branch names are entirely lowercase `kebab-case` and include the task ID when there is one. Write the task ID in lowercase in branch names (`T-05.1` becomes `t-05.1`).
 - Keep branches short-lived. Delete a branch after its pull request is merged.
 
 ---

@@ -46,21 +46,27 @@ Rules for this list:
   - [ ] The migration and seed files are stored in `/supabase/`.
 
 ### T-01.2 — Search and filter API endpoint
-- **Description:** Add an Express endpoint that returns study locations matching a search term. It also accepts optional filters for Wi-Fi, outlets, seating, and open at the current time (operating hours), as part of the specification's combined search and filter experience. When the client sends the student's coordinates, each result includes its distance and results can be ordered nearest first.
+- **Description:** Add an Express endpoint that returns study locations matching a search term. It also accepts optional filters for Wi-Fi, outlets, seating, and open at the current time (operating hours), as part of the specification's combined search and filter experience. When the client sends the student's coordinates, each result includes its distance. Results can be ordered nearest first and filtered to a selected maximum distance, as the specification lists distance as a search and filter option (see also the reason for Rejected Story 3).
 - **User story:** US-01
 - **Acceptance criteria:**
   - [ ] A request with a search term returns only locations that match the term.
   - [ ] A request combining a search term with one or more filters returns only locations that match the term **and** every filter.
   - [ ] A request with the "open now" filter excludes locations whose operating hours do not include the current time.
   - [ ] When coordinates are sent, each result includes a distance and results are ordered nearest first. When coordinates are not sent, results are still returned, without distance.
+  - [ ] When coordinates and a maximum distance are sent, only locations within that distance are returned. For example, with locations 0.5 and 10 miles away, a 1-mile maximum returns only the 0.5-mile location.
+  - [ ] The maximum distance filter can be combined with a search term and the other filters, and results must match all of them.
+  - [ ] When a maximum distance is sent without coordinates, the endpoint returns a validation error and doesn't silently ignore the filter.
+  - [ ] A zero, negative, or non-numeric maximum distance value returns a validation error.
   - [ ] A request that matches nothing returns an empty list with a success status.
 
 ### T-01.3 — Combined search and filter UI
-- **Description:** Add one search-and-filter panel to the React client: a search input plus filter controls for Wi-Fi, outlets, seating, and open now. Results appear as a list.
+- **Description:** Add one search-and-filter panel to the React client: a search input plus filter controls for Wi-Fi, outlets, seating, open now, and maximum distance. Results appear as a list.
 - **User story:** US-01
 - **Acceptance criteria:**
   - [ ] Typing a term and submitting shows matching locations.
   - [ ] Changing a filter updates the results without clearing the search term.
+  - [ ] Choosing a maximum distance shows only locations within that distance. Clearing it shows all matching locations again.
+  - [ ] If the student hasn't granted location permission, the maximum distance control is disabled and the panel explains that location access is needed for it. The other filters keep working.
   - [ ] Each result shows its name, campus/off-campus label, and distance when available.
   - [ ] If nothing matches, the page shows a "no results" message.
   - [ ] Selecting a result opens that location's detail view (T-07.2).
